@@ -1,0 +1,22 @@
+version: '2'
+services:
+  legacy-fpm:
+    image: php:7.0-fpm
+    volumes:
+      - ./legacy:/app
+    working_dir: /app
+  refonte-fpm:
+    image: php:7.0-fpm
+    volumes:
+      - ./refonte:/app
+    working_dir: /app
+  refonte:
+    image: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./refonte/docker/default.conf:/etc/nginx/conf.d/default.conf
+      - ./refonte:/app
+    links:
+      - refonte-fpm
+      - legacy-fpm
