@@ -5,6 +5,13 @@ services:
     volumes:
       - ./legacy:/app
     working_dir: /app
+  legacy:
+    image: nginx
+    volumes:
+      - ./legacy/docker/default.conf:/etc/nginx/conf.d/default.conf
+      - ./legacy:/app
+    links:
+      - legacy-fpm
   refonte-fpm:
     image: php:7.0-fpm
     volumes:
@@ -19,4 +26,4 @@ services:
       - ./refonte:/app
     links:
       - refonte-fpm
-      - legacy-fpm
+      - legacy
