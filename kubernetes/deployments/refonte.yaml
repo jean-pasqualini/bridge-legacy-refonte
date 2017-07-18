@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1 # for versions before 1.6.0 use extensions/v1beta1
+kind: Deployment
+metadata:
+  name: refonte-deployment
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: refonte
+    spec:
+      containers:
+      - name: refonte
+        image: darkilliant/kubernetes-refonte:latest
+        ports:
+        - containerPort: 80
